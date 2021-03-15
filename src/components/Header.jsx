@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import logo from '../img/logo.png'
 
 import styled from 'styled-components'
@@ -37,7 +38,7 @@ const HeaderS = styled.header`
   .wrapperButtons {
     display: flex;
 
-    button {
+    button, .register {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,33 +59,45 @@ const HeaderS = styled.header`
         color: #6b6b6b;
         pointer-events: none;
       }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
     }
+    .register {
+        color: #fff;
+        text-decoration: none;
+        background-color: #ff6c5a;
+        background-image: linear-gradient(45deg, #ff6c5a 0%, #fe2a7b 81%);
+      }
   }
 `
 
 const Header = ({setCategory, category, setSearch, search, setPeoples}) => {
 
   const ele = document.querySelector('.wrapperButtons')
-
+  
   const handleCategory = (e) => {
     if(e.target.name === category){
       setCategory('')
-      ele.firstChild.classList.remove('Female') 
-      ele.lastChild.classList.remove('Male') 
+      console.log(ele.children);
+      ele.children[0].classList.remove('Female') 
+      ele.children[1].classList.remove('Male') 
     } else if(e.target.name === 'Female' ) {
       setCategory(e.target.name)
       e.target.classList.add(e.target.name)
       
-      if(ele.lastChild.classList.contains('Male')) {
-        ele.lastChild.classList.remove('Male') 
+      if(ele.children[1].classList.contains('Male')) {
+        ele.children[1].classList.remove('Male') 
       }
      
     } else {
       setCategory(e.target.name)
       e.target.classList.add(e.target.name)
 
-      if(ele.firstChild.classList.contains('Female')) {
-        ele.firstChild.classList.remove('Female') 
+      if(ele.children[0].classList.contains('Female')) {
+        ele.children[0].classList.remove('Female') 
       }
     }
   }
@@ -95,10 +108,9 @@ const Header = ({setCategory, category, setSearch, search, setPeoples}) => {
 
   const handleSubmitSearch = (e) => {
     e.preventDefault()
-    console.log(`https://0eaa1292f690.ngrok.io/people?firstName=${search}`);
-    fetch(`https://0eaa1292f690.ngrok.io/people?firstName=${search}`)
+    fetch(`${process.env.REACT_APP_API_URL}/people?firstName=${search}`)
     .then((response) => response.json())
-    .then(data => setPeoples(data))
+    .then(data => setPeoples(data.data))
     .catch(error => console.log(error))
   }
 
@@ -126,6 +138,10 @@ const Header = ({setCategory, category, setSearch, search, setPeoples}) => {
           </span>
           Male
         </button>
+
+        <Link to="/register" className="register">
+          Register
+        </Link>
       </div>
     </HeaderS>
    );

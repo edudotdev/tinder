@@ -43,28 +43,20 @@ const Info = styled.div`
 		font-size: 18px;
 	}
 
+	.capsules {
+		display: flex;
+		margin-top: 5px;
+		justify-content: space-between;
+	}
+
 	.about {
-		/* padding: 10px; */
 		position: relative;
 		font-size: 14px;
 		font-weight: 600;
 		color: #b0b0b0;
 		border-radius: 30px;
 		padding: 3px 10px;
-		/* margin-left: 35px;
-    margin-top: 20px; */
-
-		/* &::before {
-      content: 'About';
-      position: absolute;
-      left: -35px;
-      top: -10px;
-      color: #ff0836;
-      background: #ffbbbb;
-      padding: 3px 5px;
-      font-size:10px;
-      border-radius: 99px;
-    } */
+	
 	}
 
 	.gender {
@@ -75,7 +67,7 @@ const Info = styled.div`
 		font-size: 12px;
 		padding: 5px 10px;
 		border-radius: 30px;
-		width: 80px;
+		width: 90px;
 		margin: 10px 0;
 
 		span,
@@ -132,11 +124,20 @@ const Card = ({ people, setPeoples, refresh }) => {
 					{firstName} {lastName}, {age}
 				</span>
 
-				<div className={`gender ${gender}`}>
-					<span className='material-icons'>
-						{gender === 'Female' ? 'female' : 'male'}
-					</span>
-					<p>{gender}</p>
+				<div className="capsules">
+					<div className={`gender ${gender}`}>
+						<span className='material-icons'>
+							{gender === 'Female' ? 'female' : 'male'}
+						</span>
+						<p>{gender}</p>
+					</div>
+
+					<div className={`gender ${preferences}`}>
+						<span class="material-icons">
+							favorite
+						</span>
+						<p>{preferences}</p>
+					</div>
 				</div>
 
 				<div className='about'>{description}</div>

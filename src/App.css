@@ -17,16 +17,18 @@ input, button, textarea, button {
   outline: none;
 }
 
-.Female {
+.Female, .women{
   color: #ff0836 !important;
   background: #ffbbbb !important;
-}.Female span {
+  text-transform:  capitalize;
+}.Female  span, .women span {
   color: #ff0836 !important;
 }
 
-.Male {
+.Male, .men {
   color: #0867ff !important;
   background: #bbcbff !important;
-}.Male span {
+  text-transform:  capitalize;
+}.Male span, .men span {
   color: #0867ff !important;
 }
