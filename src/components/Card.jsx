@@ -26,6 +26,11 @@ const ImageWrapper = styled.div`
     width: 100%;
     height: auto;
   }
+  
+  &:hover button {
+    opacity: 1;
+    pointer-events: unset;
+  }
 `
 
 const Info = styled.div`
@@ -80,14 +85,49 @@ const Info = styled.div`
   }
 `
 
-const Card = ({people}) => {
+const BtnDelete = styled.button`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 10px;
+  top: 10px;
+  color: #0867ff;
+  background: #bbcbff;
+  border-radius: 30px;
+  border: none;
+  padding: 10px;
+  z-index: 2;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 
-  const {firstName, lastName, age, gender, preferences, description, image} = people
+  span {
+    pointer-events: none;
+  }
+`
+
+const Card = ({people, setPeoples, refresh}) => {
+
+  const {idPeople, firstName, lastName, age, gender, preferences, description, image} = people
+
+  const handleDelete = (e) => {
+    fetch(`https://0eaa1292f690.ngrok.io/people/${idPeople}`, {method: 'DELETE'})
+    .then(() => refresh(idPeople))
+    .catch(error => console.log(error))
+  } 
 
   return ( 
     <CardS>
       <ImageWrapper>
         <img src={image} alt=""/>
+
+        <BtnDelete onClick={handleDelete}>
+          <span className="material-icons">
+            delete
+          </span>
+
+        </BtnDelete>
       </ImageWrapper>
 
       <Info>

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const HeaderS = styled.header`
   background: #fff;
   display: grid;
-  grid-template-columns: 60px 2fr 1fr;  
+  grid-template-columns: 60px 1.3fr .7fr;  
   gap: 100px;
   padding: 15px 50px;
 
@@ -62,7 +62,7 @@ const HeaderS = styled.header`
   }
 `
 
-const Header = ({setCategory, category, setSearch}) => {
+const Header = ({setCategory, category, setSearch, search, setPeoples}) => {
 
   const ele = document.querySelector('.wrapperButtons')
 
@@ -90,16 +90,22 @@ const Header = ({setCategory, category, setSearch}) => {
   }
   
   const handleSearch = (e) => {
-    e.preventDefault()
     setSearch(e.target.value.replace( /(^|\s)([a-z])/g , (m,p1,p2) =>  p1+p2.toUpperCase()))
   }
 
-  
+  const handleSubmitSearch = (e) => {
+    e.preventDefault()
+    console.log(`https://0eaa1292f690.ngrok.io/people?firstName=${search}`);
+    fetch(`https://0eaa1292f690.ngrok.io/people?firstName=${search}`)
+    .then((response) => response.json())
+    .then(data => setPeoples(data))
+    .catch(error => console.log(error))
+  }
 
   return ( 
     <HeaderS>
       <img src={logo} alt=""/>
-        <form className="wrapperSearch" >
+        <form className="wrapperSearch" onSubmit={handleSubmitSearch}>
           <input
             type="text"
             placeholder="search"

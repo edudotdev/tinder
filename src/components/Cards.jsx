@@ -8,18 +8,18 @@ const ContainerCards = styled.div`
   display: flex;
   justify-content: center; 
   align-items: center; 
-  margin-top: 100px;
+  margin: 60px 0;
 `
 
 const CardsS = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(4, 1fr);
 `
 
-const Cards = ({filtro, setCategory, category, setSearch, search}) => {
+const Cards = ({peoples, setCategory, category, setSearch, search, setPeoples, refresh}) => {
   return ( 
     <>
     <Header 
@@ -27,16 +27,19 @@ const Cards = ({filtro, setCategory, category, setSearch, search}) => {
       category={category}
       setSearch={setSearch}
       search={search}
+      setPeoples={setPeoples}
     />
     <ContainerCards> 
-    <CardsS>
-      {filtro.map(people => (
-        <Card 
-          key={people.idPeople}
-          people={people}  
-        />
-      ))}
-    </CardsS>
+      <CardsS>
+        {peoples.map(people => (
+          <Card 
+            key={people.idPeople}
+            people={people}
+            setPeoples={setPeoples}
+            refresh={refresh}
+          />
+        ))}
+      </CardsS>
     </ContainerCards>
     </>
    );

@@ -6,7 +6,6 @@ import Cards from './components/Cards'
 function App() {
 
   const [peoples, setPeoples] = useState([])
-  const [filtro, setFiltro] = useState([])
   const [category, setCategory] = useState('')
   const [search, setSearch] = useState('')
 
@@ -21,40 +20,36 @@ function App() {
   }, [])
 
   useEffect(() => {
-    setFiltro(peoples)
-  }, [peoples])
-
-  useEffect(() => {
-    if(category === '') {
-      setFiltro(peoples)
-    } else if(category === 'Female'){
-      setFiltro(peoples.filter(people => people.gender === 'Female'))
-    } else {
-      setFiltro(peoples.filter(people => people.gender === 'Male'))
-    }
+    fetch(`https://0eaa1292f690.ngrok.io/people?gender=${category}`)
+    .then((response) => response.json())
+    .then(data => setPeoples(data))
+    .catch(error => console.log(error))
   }, [category])
 
   useEffect(() => {
-    if(search === ''){
-      setFiltro(peoples)
-    } else {
-      setFiltro(peoples.filter(people => `${people.firstName}` === search || `${people.firstName} ${people.lastName}` === search || `${people.lastName}` === search))
+    if(search) {
+
     }
   }, [search])
 
+  const refresh = (id) => {
+    setPeoples(peoples => peoples.filter(people => people.idPeople !== id))
+  }
+
   return (
     <>
-      {true
+      {false
         ? 
           <Form />
         :
             <Cards 
               peoples={peoples}
+              setPeoples={setPeoples}
               setCategory={setCategory}
               category={category}
-              filtro={filtro}
               setSearch={setSearch}
               search={search}
+              refresh={refresh}
             />
       }
     </>
