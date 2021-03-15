@@ -6,7 +6,7 @@
 
 body {
   background: #f6f7fb;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body, input, button, textarea {

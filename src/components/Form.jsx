@@ -300,7 +300,7 @@ const Form = () => {
 			</ImgWrapper>
 
       <Link to='/' className="register">
-        <span class="material-icons">
+        <span className="material-icons">
           group
         </span>   
         Users
